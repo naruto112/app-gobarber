@@ -23,7 +23,9 @@
     },
     "plugins": ["react", "react-hooks", "@typescript-eslint"],
     "rules": {
+        "import/no-duplicates": "off",
         "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/no-empty-function": "off",
         "@typescript-eslint/ban-types": "off",
         "operator-linebreak": "off",
         "implicit-arrow-linebreak": "off",
