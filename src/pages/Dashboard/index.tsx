@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 /* eslint-disable react/jsx-one-expression-per-line */
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -5,7 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/Feather";
 import { useAuth } from "../../hooks/auth";
 import api from "../../services/api";
-
+import placeholderUser from "../../assets/placeholder.png";
 import {
     Container,
     Header,
@@ -21,6 +22,7 @@ import {
     ProviderInfo,
     ProviderMeta,
     ProviderMetaText,
+    SignOut,
 } from "./styles";
 
 export interface Provider {
@@ -38,13 +40,17 @@ const Dashboard: React.FC = () => {
     useEffect(() => {
         api.get("providers").then((response) => {
             setProviders(response.data);
+            console.log(response.data);
         });
     }, []);
 
     const navigateToProfile = useCallback(() => {
-        signOut();
-        //navigate("Profile");
+        navigate("Profile");
     }, [navigate]);
+
+    const userSignOut = useCallback(() => {
+        signOut();
+    }, [signOut]);
 
     const navigateToCreateAppointment = useCallback(
         (providerId: string) => {
@@ -62,8 +68,15 @@ const Dashboard: React.FC = () => {
                 </HeaderTitle>
 
                 <ProfileButton onPress={navigateToProfile}>
-                    <UserVatar source={{ uri: user.avatar_url }} />
+                    {user.avatar_url ? (
+                        <UserVatar source={{ uri: user.avatar_url }} />
+                    ) : (
+                        <UserVatar source={placeholderUser} />
+                    )}
                 </ProfileButton>
+                <SignOut onPress={userSignOut}>
+                    <Icon name="log-out" size={25} color="#f4ede8" />
+                </SignOut>
             </Header>
 
             <ProvidersList
@@ -76,7 +89,13 @@ const Dashboard: React.FC = () => {
                     <ProviderContainer
                         onPress={() => navigateToCreateAppointment(provider.id)}
                     >
-                        <ProviderAvatar source={{ uri: provider.avatar_url }} />
+                        {provider.avatar_url ? (
+                            <ProviderAvatar
+                                source={{ uri: provider.avatar_url }}
+                            />
+                        ) : (
+                            <ProviderAvatar source={placeholderUser} />
+                        )}
 
                         <ProviderInfo>
                             <ProviderName>{provider.name}</ProviderName>

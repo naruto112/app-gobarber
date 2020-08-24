@@ -31,6 +31,9 @@ export const UserName = styled.Text`
 `;
 
 export const ProfileButton = styled.TouchableOpacity``;
+
+export const SignOut = styled.TouchableOpacity``;
+
 export const UserVatar = styled.Image`
     width: 56px;
     height: 56px;

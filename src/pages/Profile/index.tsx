@@ -18,6 +18,7 @@ import api from "../../services/api";
 
 import { useAuth } from "../../hooks/auth";
 import getValidationErrors from "../../utils/getValidationErrors";
+import placeholderUser from "../../assets/placeholder.png";
 
 import Input from "../../components/Input";
 import Button from "../../components/Button";
@@ -181,7 +182,11 @@ const SignUp: React.FC = () => {
                             />
                         </BackButton>
                         <UserAvatarButton onPress={handleUpdateAvatar}>
-                            <UserAvatar source={{ uri: user.avatar_url }} />
+                            {user.avatar_url ? (
+                                <UserAvatar source={{ uri: user.avatar_url }} />
+                            ) : (
+                                <UserAvatar source={placeholderUser} />
+                            )}
                         </UserAvatarButton>
                         <View>
                             <Title>Meu perfil</Title>
