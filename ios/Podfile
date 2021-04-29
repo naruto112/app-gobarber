@@ -3,20 +3,21 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '10.0'
 
+use_flipper!({'Flipper-Folly' => '2.3.0' })
 
-target 'goairtech' do
+target 'appgobarber' do
   # Comment the next line if you don't want to use dynamic frameworks
   config = use_native_modules!
 
   use_react_native!(:path => config["reactNativePath"])
-  # Pods for goairtech
+  # Pods for appgobarber
 
-  target 'goairtech-tvOSTests' do
+  target 'appgobarber-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end
 
-  target 'goairtechTests' do
+  target 'appgobarberTests' do
     inherit! :search_paths
     # Pods for testing
   end

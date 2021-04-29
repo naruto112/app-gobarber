@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState, useMemo } from "react";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/Feather";
-import { Platform, Alert } from "react-native";
+import { Platform, Alert, Text } from "react-native";
 import { format } from "date-fns";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
@@ -21,6 +21,7 @@ import {
     ProviderAvatar,
     ProviderName,
     Calendar,
+    DatePicketCalendar,
     Title,
     OpenDatePickerButton,
     OpenDatePickerButtonText,
@@ -200,23 +201,54 @@ const CreateAppointment: React.FC = () => {
 
                 <Calendar>
                     <Title>Escolha a data</Title>
-
-                    <OpenDatePickerButton onPress={handleToggleDatePicker}>
-                        <OpenDatePickerButtonText>
-                            Selecionar outra data
-                        </OpenDatePickerButtonText>
-                    </OpenDatePickerButton>
-
-                    {showDatePicker && (
-                        <DateTimePicker
-                            mode="date"
-                            display="calendar"
-                            onChange={handleDateChanged}
-                            textColor="#f4ede8"
-                            value={selectedDate}
-                        />
+                    {Platform.OS === "android" && (
+                        <OpenDatePickerButton>
+                            <OpenDatePickerButtonText
+                                onPress={handleToggleDatePicker}
+                            >
+                                Abrir calendário
+                            </OpenDatePickerButtonText>
+                        </OpenDatePickerButton>
                     )}
                 </Calendar>
+
+                {Platform.OS === "ios" ? (
+                    <DatePicketCalendar>
+                        <DateTimePicker
+                            mode="date"
+                            locale="pt-BR"
+                            display="spinner"
+                            onChange={handleDateChanged}
+                            value={selectedDate}
+                            textColor="#fff"
+                            style={{
+                                backgroundColor: "#232129",
+                                width: 300,
+                                height: 300,
+                                borderRadius: 30,
+                            }}
+                        />
+                    </DatePicketCalendar>
+                ) : (
+                    <>
+                        {showDatePicker && (
+                            <DateTimePicker
+                                mode="date"
+                                locale="pt-BR"
+                                display="default"
+                                onChange={handleDateChanged}
+                                value={selectedDate}
+                                textColor="#fff"
+                                style={{
+                                    backgroundColor: "#232129",
+                                    width: 300,
+                                    height: 300,
+                                    borderRadius: 30,
+                                }}
+                            />
+                        )}
+                    </>
+                )}
 
                 <Schedule>
                     <Title>Escolha o horário</Title>

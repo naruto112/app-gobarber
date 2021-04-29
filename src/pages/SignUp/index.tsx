@@ -97,7 +97,7 @@ const SignUp: React.FC = () => {
                                 autoCapitalize="words"
                                 name="name"
                                 icon="user"
-                                placeholder="E-mail"
+                                placeholder="Nome completo"
                                 returnKeyType="next"
                                 onSubmitEditing={() => {
                                     emailInputRef.current?.focus();

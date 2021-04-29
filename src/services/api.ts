@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "https://api-gobarber.msystem.dev",
+    baseURL: "http://192.168.15.10:3333",
 });
 
 export default api;
